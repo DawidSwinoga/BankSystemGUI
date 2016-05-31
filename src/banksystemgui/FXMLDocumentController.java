@@ -11,9 +11,11 @@ import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableColumn.CellDataFeatures;
 import javafx.scene.control.TableView;
@@ -43,13 +45,24 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<Account, String> streetColumn;
     @FXML
     private TableColumn<Account, String> postalCodeColumn;
+    private Account accountSelected;
+    @FXML
+    private Button deposiButton;
+    private Database database;
     
+    @FXML
+    private void deposit() {
+        accountSelected.deposit(BigDecimal.TEN);
+        accountsTable.getColumns().get(0).setVisible(false);
+        accountsTable.getColumns().get(0).setVisible(true);
+        accountSelected.displayInfo();
+    }
 
     @Override
     @SuppressWarnings("unchecked")
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Database database = new Database("database");
+        database = new Database("database");
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         lastNameColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         peselColumn.setCellValueFactory(new PropertyValueFactory<>("pesel"));
@@ -60,6 +73,10 @@ public class FXMLDocumentController implements Initializable {
         streetColumn.setCellValueFactory((CellDataFeatures<Account, String> account) -> new ReadOnlyObjectWrapper(account.getValue().getAdress().getStreet()));
 
         accountsTable.setItems(FXCollections.observableArrayList(database.getAccounts()));
+        
+        accountsTable.getSelectionModel().selectedItemProperty().addListener((ObservableValue<? extends Account> ov, Account oldVal, Account newVal) -> {
+            accountSelected = newVal;
+        });
 
     }
 

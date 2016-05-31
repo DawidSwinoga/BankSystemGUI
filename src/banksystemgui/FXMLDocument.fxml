@@ -13,12 +13,17 @@
           <TableColumn fx:id="idColumn" prefWidth="51.0" text="ID" />
           <TableColumn fx:id="nameColumn" prefWidth="99.0" text="Imie" />
             <TableColumn fx:id="lastNameColumn" prefWidth="88.0" text="Nazwisko" />
-            <TableColumn prefWidth="100.0" text="PESEL" />
+            <TableColumn fx:id="peselColumn" prefWidth="100.0" text="PESEL" />
             <TableColumn fx:id="cityColumn" prefWidth="94.0" text="Miasto" />
             <TableColumn fx:id="streetColumn" prefWidth="150.0" text="Ulica" />
             <TableColumn fx:id="postalCodeColumn" prefWidth="116.0" text="Kod pocztowy" />
             <TableColumn fx:id="balanceColumn" prefWidth="86.0" text="Stan konta" />
         </columns>
       </TableView>
+      <Button layoutX="1044.0" layoutY="114.0" mnemonicParsing="false" text="Nowe konto" />
+      <Button fx:id="deposiButton" layoutX="1165.0" layoutY="172.0" mnemonicParsing="false" onAction="#deposit" text="Wpłać" />
+      <Button layoutX="1162.0" layoutY="211.0" mnemonicParsing="false" text="Wypłać" />
+      <Button layoutX="1168.0" layoutY="139.0" mnemonicParsing="false" text="Usuń" />
+      <TextField layoutX="1052.0" layoutY="257.0" prefHeight="0.0" prefWidth="149.0" />
     </children>
 </AnchorPane>
