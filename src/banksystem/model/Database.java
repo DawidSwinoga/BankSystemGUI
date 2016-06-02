@@ -1,5 +1,6 @@
-package banksystem;
+package banksystem.model;
 
+import banksystem.model.Account;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.ObjectInputStream;

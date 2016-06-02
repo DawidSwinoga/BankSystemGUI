@@ -5,8 +5,8 @@
  */
 package banksystemgui;
 
-import banksystem.Account;
-import banksystem.Database;
+import banksystem.model.Account;
+import banksystem.model.Database;
 import java.math.BigDecimal;
 import java.net.URL;
 import java.util.ResourceBundle;
