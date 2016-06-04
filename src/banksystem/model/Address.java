@@ -2,77 +2,96 @@ package banksystem.model;
 
 import java.io.Serializable;
 import java.util.Objects;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class Address implements Serializable {
 
-	private String city;
-	private String street;
-	private String postalCode;
+    private StringProperty city;
+    private StringProperty street;
+    private StringProperty postalCode;
 
-	public Address(String city, String street, String postalCode) {
-		this.city = city;
-		this.street = street;
-		this.postalCode = postalCode;
-	}
+    public Address(String city, String street, String postalCode) {
+        this.city = new SimpleStringProperty(city);
+        this.street = new SimpleStringProperty(street);
+        this.postalCode = new SimpleStringProperty(postalCode);
+    }
 
-	void displayInfo() {
-		System.out.println("Adres: " + city + "  " + street + "  " + postalCode);
-	}
+    public Address() {
+        this("", "", "");
+    }
 
-	@Override
-	public int hashCode() {
-		int hash = 3;
-		hash = 89 * hash + Objects.hashCode(this.city);
-		hash = 89 * hash + Objects.hashCode(this.street);
-		hash = 89 * hash + Objects.hashCode(this.postalCode);
-		return hash;
-	}
+    void displayInfo() {
+        System.out.println("Adres: " + city + "  " + street + "  " + postalCode);
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj) {
-			return true;
-		}
-		if (obj == null) {
-			return false;
-		}
-		if (getClass() != obj.getClass()) {
-			return false;
-		}
-		final Address other = (Address) obj;
-		if (!Objects.equals(this.city, other.city)) {
-			return false;
-		}
-		if (!Objects.equals(this.street, other.street)) {
-			return false;
-		}
-		if (!Objects.equals(this.postalCode, other.postalCode)) {
-			return false;
-		}
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 89 * hash + Objects.hashCode(this.city);
+        hash = 89 * hash + Objects.hashCode(this.street);
+        hash = 89 * hash + Objects.hashCode(this.postalCode);
+        return hash;
+    }
 
-	public String getCity() {
-		return city;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Address other = (Address) obj;
+        if (!Objects.equals(this.city, other.city)) {
+            return false;
+        }
+        if (!Objects.equals(this.street, other.street)) {
+            return false;
+        }
+        if (!Objects.equals(this.postalCode, other.postalCode)) {
+            return false;
+        }
+        return true;
+    }
 
-	public String getStreet() {
-		return street;
-	}
+    public StringProperty cityProperty() {
+        return city;
+    }
 
-	public String getPostalCode() {
-		return postalCode;
-	}
+    public StringProperty streetProperty() {
+        return street;
+    }
 
-	public void setCity(String city) {
-		this.city = city;
-	}
+    public StringProperty postalCodeProperty() {
+        return postalCode;
+    }
 
-	public void setStreet(String street) {
-		this.street = street;
-	}
+    public String getCity() {
+        return city.get();
+    }
 
-	public void setPostalCode(String postalCode) {
-		this.postalCode = postalCode;
-	}
+    public String getStreet() {
+        return street.get();
+    }
+
+    public String getPostalCode() {
+        return postalCode.get();
+    }
+
+    public void setCity(String city) {
+        this.city.set(city);
+    }
+
+    public void setStreet(String street) {
+        this.street.set(street);
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode.set(postalCode);
+    }
+
 }

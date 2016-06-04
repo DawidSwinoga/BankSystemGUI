@@ -6,6 +6,89 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1">
-    
+<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="banksystem.view.AccountOverviewController">
+   <children>
+      <SplitPane dividerPositions="0.12060301507537688" orientation="VERTICAL" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+               <children>
+                  <TextField layoutX="227.0" layoutY="10.0" />
+                  <Button layoutX="563.0" layoutY="10.0" mnemonicParsing="false" text="Szukaj" />
+                  <ChoiceBox layoutX="399.0" layoutY="10.0" prefWidth="150.0" />
+               </children></AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <SplitPane dividerPositions="0.7110552763819096" orientation="VERTICAL" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <TableView fx:id="accountsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columns>
+                                  <TableColumn fx:id="clientNumberColumn" prefWidth="75.0" text="ID" />
+                                  <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Imie" />
+                                    <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Nazwisko" />
+                                    <TableColumn fx:id="peselColumn" prefWidth="75.0" text="Pesel" />
+                                    <TableColumn fx:id="cityColumn" prefWidth="75.0" text="Miasto" />
+                                    <TableColumn fx:id="streetColumn" prefWidth="103.0" text="Ulica" />
+                                    <TableColumn fx:id="postalCodeColumn" prefWidth="75.0" text="Kod pocztowy" />
+                                    <TableColumn fx:id="balanceColumn" prefWidth="75.0" text="Stan konta" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
+                           <children>
+                              <SplitPane dividerPositions="0.6863979848866498" prefHeight="90.0" prefWidth="796.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <items>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                       <children>
+                                          <SplitPane dividerPositions="0.20185185185185187" prefHeight="95.0" prefWidth="542.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                            <items>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+                                                   <children>
+                                                      <Label layoutX="11.0" layoutY="30.0" text="Konto żródłowe" />
+                                                      <Label layoutX="11.0" layoutY="55.0" text="Konto docelowe" />
+                                                   </children>
+                                                </AnchorPane>
+                                              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                                                   <children>
+                                                      <TableView fx:id="transferAccountTable" prefHeight="93.0" prefWidth="376.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                                        <columns>
+                                                            <TableColumn fx:id="clientNumberTransferColumn" prefWidth="75.0" sortable="false" text="ID" />
+                                                          <TableColumn fx:id="nameTransferColumn" prefWidth="428.0" sortable="false" text="Imie" />
+                                                            <TableColumn fx:id="lastNameTransferColumn" prefWidth="75.0" sortable="false" text="Nazwisko" />
+                                                            <TableColumn fx:id="balanceTransferColumn" prefWidth="75.0" sortable="false" text="Stan konta" />
+                                                        </columns>
+                                                         <columnResizePolicy>
+                                                            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                                         </columnResizePolicy>
+                                                      </TableView>
+                                                   </children>
+                                                </AnchorPane>
+                                            </items>
+                                          </SplitPane>
+                                       </children></AnchorPane>
+                                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
+                                       <children>
+                                          <Button fx:id="createAccountButton" layoutX="21.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="20.0" prefWidth="70.0" text="Dodaj" />
+                                          <Button fx:id="withdrawButton" layoutX="98.0" layoutY="48.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" text="Wypłać" />
+                                          <Button fx:id="depositButton" layoutX="21.0" layoutY="48.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" text="Wpłać" />
+                                          <Button fx:id="transferButton" layoutX="180.0" layoutY="48.0" mnemonicParsing="false" text="Przelew" />
+                                          <Button fx:id="removeAccountButton" layoutX="187.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleRemoveAccount" text="Usuń" />
+                                       </children>
+                                    </AnchorPane>
+                                </items>
+                              </SplitPane>
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
 </AnchorPane>

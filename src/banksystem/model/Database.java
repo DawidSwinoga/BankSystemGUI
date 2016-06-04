@@ -24,7 +24,7 @@ public class Database {
 			fileInput = new FileInputStream(databaseName + ".dat");
 			ois = new ObjectInputStream(fileInput);
 			this.accounts = (List<Account>) ois.readObject();
-			this.nextFreeClientID = accounts.get(accounts.size()-1).getClientNumber();
+			this.nextFreeClientID = accounts.get(accounts.size()-1).getClientNumber()+1;
 		} catch (Exception e) {
 			this.nextFreeClientID = 0;
 			this.accounts = new ArrayList<>();			
