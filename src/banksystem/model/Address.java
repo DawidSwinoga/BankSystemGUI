@@ -46,13 +46,13 @@ public class Address {
             return false;
         }
         final Address other = (Address) obj;
-        if (!Objects.equals(this.city, other.city)) {
+        if (!Objects.equals(this.getCity(), other.getCity())) {
             return false;
         }
-        if (!Objects.equals(this.street, other.street)) {
+        if (!Objects.equals(this.getStreet(), other.getStreet())) {
             return false;
         }
-        if (!Objects.equals(this.postalCode, other.postalCode)) {
+        if (!Objects.equals(this.getPostalCode(), other.getPostalCode())) {
             return false;
         }
         return true;

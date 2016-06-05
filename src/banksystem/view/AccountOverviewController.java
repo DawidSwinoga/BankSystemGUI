@@ -2,12 +2,15 @@ package banksystem.view;
 
 import banksystem.MainApp;
 import banksystem.model.Account;
+import banksystem.model.Database;
+import banksystem.model.Address;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -58,9 +61,14 @@ public class AccountOverviewController {
     private Button transferButton;
     @FXML
     private TextField transactionAmountTextField;
+    @FXML
+    private ChoiceBox<String> searchOptionChoiceBox;
+    @FXML
+    private TextField searchInputField;
 
     private ObservableList<Account> transferAccounts = FXCollections.observableArrayList();
     private MainApp mainApp;
+    private Database database;
 
     public AccountOverviewController() {
     }
@@ -88,8 +96,41 @@ public class AccountOverviewController {
         lastNameTransferColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         balanceTransferColumn.setCellValueFactory(cellData -> cellData.getValue().balanceProperty());
 
+        searchOptionChoiceBox.getItems().addAll("Id", "Imie", "Nazwisko", "Adres", "Pesel");
+        searchOptionChoiceBox.setValue("Id");
+
         hideActionAccountButtons(true);
         accountsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> hideActionAccountButtons(false));
+    }
+
+    @FXML
+    private void handleSearch() {
+        String option = searchOptionChoiceBox.getValue();
+
+        switch (option) {
+            case "Imie":
+                accountsTable.setItems(database.findByName(searchInputField.getText()));
+                break;
+            case "Nazwisko":
+                accountsTable.setItems(database.findByLastName(searchInputField.getText()));
+                break;
+            case "Pesel":
+                accountsTable.setItems(FXCollections.observableArrayList(database.findByPesel(searchInputField.getText())));
+                break;
+            case "Id":
+                Integer clientNumber = parseToInteger(searchInputField.getText());
+                if (clientNumber != null) {
+                    accountsTable.setItems(FXCollections.observableArrayList(database.findByClientNumber(clientNumber)));
+                }
+                break;
+            case "Adres":
+                String address = searchInputField.getText();
+                String[] addressSplit = address.split(", ");
+     
+                if (!(addressSplit == null || addressSplit.length < 3)) {
+                    accountsTable.setItems(database.findByAdress(new Address(addressSplit[0], addressSplit[1], addressSplit[2])));
+                }
+        }
     }
 
     @FXML
@@ -140,8 +181,14 @@ public class AccountOverviewController {
         accountsTable.getItems().remove(selectedIndex);
     }
 
+    @FXML
+    private void handleClearSearchInputField() {
+        searchInputField.clear();
+    }
+
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
+        database = this.mainApp.getDatabase();
         accountsTable.setItems(mainApp.getDatabase().getAccounts());
     }
 
@@ -161,6 +208,18 @@ public class AccountOverviewController {
             number = Double.parseDouble(str);
         } catch (Exception e) {
             Alert invalidDataAlert = new Alert(Alert.AlertType.ERROR, "Wprowadzona kwota nie jest liczbą!", ButtonType.OK);
+            invalidDataAlert.showAndWait();
+            number = null;
+        }
+        return number;
+    }
+
+    private Integer parseToInteger(String str) {
+        Integer number;
+        try {
+            number = Integer.parseUnsignedInt(str);
+        } catch (Exception e) {
+            Alert invalidDataAlert = new Alert(Alert.AlertType.ERROR, "Id musi być liczbą całkowitą dodatnią!", ButtonType.OK);
             invalidDataAlert.showAndWait();
             number = null;
         }

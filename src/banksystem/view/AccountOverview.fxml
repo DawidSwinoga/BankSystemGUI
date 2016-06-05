@@ -12,9 +12,9 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                <children>
-                  <TextField layoutX="227.0" layoutY="10.0" />
-                  <Button layoutX="563.0" layoutY="10.0" mnemonicParsing="false" text="Szukaj" />
-                  <ChoiceBox layoutX="399.0" layoutY="10.0" prefWidth="150.0" />
+                  <TextField fx:id="searchInputField" layoutX="227.0" layoutY="10.0" onMouseClicked="#handleClearSearchInputField" />
+                  <Button defaultButton="true" layoutX="615.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSearch" text="Szukaj" />
+                  <ChoiceBox fx:id="searchOptionChoiceBox" layoutX="422.0" layoutY="10.0" prefWidth="150.0" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>

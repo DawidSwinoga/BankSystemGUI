@@ -2,26 +2,38 @@
 <accounts>
     <account>
         <address>
-            <city>Będzelin</city>
-            <postalCode>95-040</postalCode>
-            <street>Grzybowa 14</street>
+            <city>Bełchatów</city>
+            <postalCode>123-12</postalCode>
+            <street>Dzika 23</street>
         </address>
         <balance>100.0</balance>
         <clientNumber>0</clientNumber>
         <lastName>Świnoga</lastName>
         <name>Dawid</name>
-        <pesel>95-040</pesel>
+        <pesel>12121212121</pesel>
     </account>
     <account>
         <address>
             <city>Koluszki</city>
-            <postalCode>95-040</postalCode>
-            <street>Żeliwan</street>
+            <postalCode>12-312</postalCode>
+            <street>Żeliwna 3</street>
         </address>
-        <balance>50.0</balance>
+        <balance>200.0</balance>
         <clientNumber>1</clientNumber>
         <lastName>Parysz</lastName>
+        <name>Piotr</name>
+        <pesel>191203</pesel>
+    </account>
+    <account>
+        <address>
+            <city>Regny</city>
+            <postalCode>12</postalCode>
+            <street>Bura</street>
+        </address>
+        <balance>0.0</balance>
+        <clientNumber>2</clientNumber>
+        <lastName>Kotynia</lastName>
         <name>Michał</name>
-        <pesel>912312312</pesel>
+        <pesel>1231231231</pesel>
     </account>
 </accounts>
