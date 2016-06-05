@@ -6,7 +6,7 @@
             <postalCode>123-12</postalCode>
             <street>Dzika 23</street>
         </address>
-        <balance>341.0</balance>
+        <balance>351.0</balance>
         <clientNumber>0</clientNumber>
         <lastName>Świnoga</lastName>
         <name>Dawid</name>
@@ -18,7 +18,7 @@
             <postalCode>12-312</postalCode>
             <street>Żeliwna 3</street>
         </address>
-        <balance>659.0</balance>
+        <balance>649.0</balance>
         <clientNumber>1</clientNumber>
         <lastName>Parysz</lastName>
         <name>Piotr</name>
