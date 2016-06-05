@@ -14,6 +14,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 /**
  *
@@ -65,10 +66,13 @@ public class AccountOverviewController {
     private ChoiceBox<String> searchOptionChoiceBox;
     @FXML
     private TextField searchInputField;
+    @FXML
+    private AnchorPane transferDetailsAnchorPane;
 
     private ObservableList<Account> transferAccounts = FXCollections.observableArrayList();
     private MainApp mainApp;
     private Database database;
+    private boolean isTransferInProgres = false;
 
     public AccountOverviewController() {
     }
@@ -99,8 +103,19 @@ public class AccountOverviewController {
         searchOptionChoiceBox.getItems().addAll("Id", "Imie", "Nazwisko", "Adres", "Pesel");
         searchOptionChoiceBox.setValue("Id");
 
+        transferDetailsAnchorPane.setVisible(false);
         hideActionAccountButtons(true);
-        accountsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> hideActionAccountButtons(false));
+
+        accountsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (!isTransferInProgres) {
+                hideActionAccountButtons(false);
+            }
+            if (newValue == null) {
+                hideActionAccountButtons(true);
+            } else {
+                transferButton.setDisable(false);
+            }
+        });
     }
 
     @FXML
@@ -126,7 +141,7 @@ public class AccountOverviewController {
             case "Adres":
                 String address = searchInputField.getText();
                 String[] addressSplit = address.split(", ");
-     
+
                 if (!(addressSplit == null || addressSplit.length < 3)) {
                     accountsTable.setItems(database.findByAdress(new Address(addressSplit[0], addressSplit[1], addressSplit[2])));
                 }
@@ -137,10 +152,16 @@ public class AccountOverviewController {
     private void handleTransfer() {
         if (transferAccounts.size() == 2) {
             Double amount = parseToDouble(transactionAmountTextField.getText());
+            if (amount == null) {
+                return;
+            }
             if (transferAccounts.get(0).isEnoughMoney(amount)) {
                 transferAccounts.get(0).withdraw(amount);
                 transferAccounts.get(1).deposit(amount);
                 transferAccounts.clear();
+                transferDisableButtons(false);
+                transferDetailsAnchorPane.setVisible(false);
+                isTransferInProgres = false;
             } else {
                 showNotEnoughMoneyToTransactionError();
             }
@@ -148,6 +169,9 @@ public class AccountOverviewController {
         } else {
             transferAccounts.add(accountsTable.getSelectionModel().getSelectedItem());
             transferAccountTable.setItems(transferAccounts);
+            transferDisableButtons(true);
+            transferDetailsAnchorPane.setVisible(true);
+            isTransferInProgres = true;
         }
     }
 
@@ -230,5 +254,12 @@ public class AccountOverviewController {
         Alert invalidDataAlert = new Alert(Alert.AlertType.ERROR, "", ButtonType.OK);
         invalidDataAlert.setHeaderText("Za mało gotówki do przeprowadzenia transakcji!");
         invalidDataAlert.showAndWait();
+    }
+
+    private void transferDisableButtons(Boolean disable) {
+        createAccountButton.setDisable(disable);
+        removeAccountButton.setDisable(disable);
+        depositButton.setDisable(disable);
+        withdrawButton.setDisable(disable);
     }
 }
