@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="banksystem.view.AccountOverviewController">
+<AnchorPane id="AnchorPane" prefHeight="500.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="banksystem.view.AccountOverviewController">
    <children>
       <SplitPane dividerPositions="0.12060301507537688" orientation="VERTICAL" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
@@ -73,11 +73,13 @@
                                        </children></AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                                        <children>
-                                          <Button fx:id="createAccountButton" layoutX="21.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="20.0" prefWidth="70.0" text="Dodaj" />
-                                          <Button fx:id="withdrawButton" layoutX="98.0" layoutY="48.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" text="Wypłać" />
-                                          <Button fx:id="depositButton" layoutX="21.0" layoutY="48.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" text="Wpłać" />
-                                          <Button fx:id="transferButton" layoutX="180.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleTransfer" text="Przelew" />
-                                          <Button fx:id="removeAccountButton" layoutX="187.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleRemoveAccount" text="Usuń" />
+                                          <Button fx:id="createAccountButton" layoutX="14.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="20.0" prefWidth="70.0" text="Dodaj" />
+                                          <Button fx:id="withdrawButton" layoutX="108.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleWithdraw" prefHeight="20.0" prefWidth="70.0" text="Wypłać" />
+                                          <Button fx:id="depositButton" layoutX="14.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleDeposit" prefHeight="20.0" prefWidth="70.0" text="Wpłać" />
+                                          <Button fx:id="transferButton" layoutX="197.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleTransfer" text="Przelew" />
+                                          <Button fx:id="removeAccountButton" layoutX="197.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleRemoveAccount" text="Usuń" />
+                                          <Label layoutX="14.0" layoutY="14.0" text="Kwota transakcji" />
+                                          <TextField fx:id="transactionAmountTextField" layoutX="108.0" layoutY="10.0" />
                                        </children>
                                     </AnchorPane>
                                 </items>

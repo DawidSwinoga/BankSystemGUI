@@ -1,6 +1,12 @@
 package banksystem.model;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javax.xml.bind.JAXBContext;
@@ -9,7 +15,7 @@ import javax.xml.bind.Unmarshaller;
 
 public class Database {
 
-    private int nextFreeClientID;
+    private Integer nextFreeClientID;
     private ObservableList<Account> accounts = FXCollections.observableArrayList();
     private String databaseName;
 

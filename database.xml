@@ -1,1 +1,27 @@
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?><accounts><account><address><city>dd</city><postalCode>dd</postalCode><street>dd</street></address><balance>0.0</balance><lastName>ddd</lastName><name>ddd</name><pesel>ddd</pesel></account></accounts>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<accounts>
+    <account>
+        <address>
+            <city>Będzelin</city>
+            <postalCode>95-040</postalCode>
+            <street>Grzybowa 14</street>
+        </address>
+        <balance>100.0</balance>
+        <clientNumber>0</clientNumber>
+        <lastName>Świnoga</lastName>
+        <name>Dawid</name>
+        <pesel>95-040</pesel>
+    </account>
+    <account>
+        <address>
+            <city>Koluszki</city>
+            <postalCode>95-040</postalCode>
+            <street>Żeliwan</street>
+        </address>
+        <balance>50.0</balance>
+        <clientNumber>1</clientNumber>
+        <lastName>Parysz</lastName>
+        <name>Michał</name>
+        <pesel>912312312</pesel>
+    </account>
+</accounts>

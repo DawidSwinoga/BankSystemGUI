@@ -86,8 +86,8 @@ public class Account {
     public DoubleProperty balanceProperty() {
         return balance;
     }
-    //@XmlElement
-    public int getClientNumber() {
+    
+    public Integer getClientNumber() {
         return clientNumber.get();
     }
 
@@ -110,8 +110,8 @@ public class Account {
     public Double getBalance() {
         return balance.get();
     }
-
-    public void setclientNumber(Integer clientNumber) {
+    
+    public void setClientNumber(Integer clientNumber) {
         this.clientNumber.set(clientNumber);
     }
 
@@ -133,7 +133,5 @@ public class Account {
 
     public void setBalance(Double balance) {
         this.balance.set(balance);
-    }
-    
-    
+    }    
 }
