@@ -11,8 +11,6 @@ import banksystem.view.AccountOverviewController;
 import banksystem.view.CreateAccountDialogController;
 import java.io.IOException;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -28,10 +26,7 @@ public class MainApp extends Application {
 
     private Stage primaryStage;
     private BorderPane rootLayout;
-    private Database database; 
-    
-
-    
+    private Database database;
 
     @Override
     public void start(Stage primaryStage) {
@@ -104,7 +99,7 @@ public class MainApp extends Application {
 
     public Database getDatabase() {
         return database;
-    }      
+    }
 
     public static void main(String[] args) {
         launch(args);

@@ -1,6 +1,5 @@
 package banksystem.model;
 
-import java.io.Serializable;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

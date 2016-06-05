@@ -8,8 +8,8 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-
 public class CreateAccountDialogController {
+
     @FXML
     TextField nameField;
     @FXML
@@ -26,32 +26,28 @@ public class CreateAccountDialogController {
     Button okButton;
     @FXML
     Button cancelButton;
-    
-    
-    
+
     private Stage dialogStage;
     private Account account;
 
     public CreateAccountDialogController() {
         this.account = new Account();
     }
-    
+
     public Account getAccount() {
         return account;
     }
-    
+
     public void setDialogStage(Stage dialogStage) {
         this.dialogStage = dialogStage;
     }
-    
-    
+
     @FXML
     private void handleCancel() {
         account = null;
         dialogStage.close();
     }
-    
-    
+
     @FXML
     private void handleOk() {
         if (isInputValid()) {
@@ -61,15 +57,14 @@ public class CreateAccountDialogController {
             account.getAdress().setCity(cityField.getText());
             account.getAdress().setStreet(streetField.getText());
             account.getAdress().setPostalCode(postalCodeField.getText());
-            
+
             dialogStage.close();
         }
     }
-    
-    
+
     private Boolean isInputValid() {
         String messageError = "";
-        
+
         if (nameField.getText() == null || nameField.getText().length() == 0) {
             messageError = messageError + "Podaj imie.\n";
         }
@@ -88,19 +83,18 @@ public class CreateAccountDialogController {
         if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
             messageError = messageError + "Podaj kod pocztowy.\n";
         }
-        
-        
+
         if (messageError.length() == 0) {
-            return true;            
+            return true;
         } else {
             Alert invalidDataAlert = new Alert(Alert.AlertType.ERROR, messageError, ButtonType.OK);
             invalidDataAlert.setTitle("Nieprawidłowe dane");
             invalidDataAlert.setHeaderText("Uzupełnij brakujące dane.");
-            
+
             invalidDataAlert.showAndWait();
             return false;
         }
-        
+
     }
-    
+
 }

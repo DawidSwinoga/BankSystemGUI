@@ -86,7 +86,7 @@ public class Account {
     public DoubleProperty balanceProperty() {
         return balance;
     }
-    
+
     public Integer getClientNumber() {
         return clientNumber.get();
     }
@@ -98,7 +98,7 @@ public class Account {
     public String getLastName() {
         return lastName.get();
     }
-    
+
     public Address getAdress() {
         return address;
     }
@@ -110,7 +110,7 @@ public class Account {
     public Double getBalance() {
         return balance.get();
     }
-    
+
     public void setClientNumber(Integer clientNumber) {
         this.clientNumber.set(clientNumber);
     }
@@ -133,5 +133,5 @@ public class Account {
 
     public void setBalance(Double balance) {
         this.balance.set(balance);
-    }    
+    }
 }

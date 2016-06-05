@@ -1,12 +1,6 @@
 package banksystem.model;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javax.xml.bind.JAXBContext;
@@ -25,9 +19,9 @@ public class Database {
         try {
             JAXBContext context = JAXBContext.newInstance(AccountListWraper.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
-            AccountListWraper listWraper = (AccountListWraper) unmarshaller.unmarshal(new File(databaseName + ".xml"));            
+            AccountListWraper listWraper = (AccountListWraper) unmarshaller.unmarshal(new File(databaseName + ".xml"));
             accounts.addAll(listWraper.getAccounts());
-            
+
             this.nextFreeClientID = accounts.get(accounts.size() - 1).getClientNumber() + 1;
         } catch (Exception e) {
             this.nextFreeClientID = 0;
@@ -120,7 +114,7 @@ public class Database {
             e.printStackTrace();
         }
     }
-    
+
     public Integer getNextFreeClientId() {
         return nextFreeClientID++;
     }
