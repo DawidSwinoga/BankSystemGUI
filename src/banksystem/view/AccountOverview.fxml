@@ -76,7 +76,7 @@
                                           <Button fx:id="createAccountButton" layoutX="21.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="20.0" prefWidth="70.0" text="Dodaj" />
                                           <Button fx:id="withdrawButton" layoutX="98.0" layoutY="48.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" text="Wypłać" />
                                           <Button fx:id="depositButton" layoutX="21.0" layoutY="48.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="70.0" text="Wpłać" />
-                                          <Button fx:id="transferButton" layoutX="180.0" layoutY="48.0" mnemonicParsing="false" text="Przelew" />
+                                          <Button fx:id="transferButton" layoutX="180.0" layoutY="48.0" mnemonicParsing="false" onAction="#handleTransfer" text="Przelew" />
                                           <Button fx:id="removeAccountButton" layoutX="187.0" layoutY="16.0" mnemonicParsing="false" onAction="#handleRemoveAccount" text="Usuń" />
                                        </children>
                                     </AnchorPane>

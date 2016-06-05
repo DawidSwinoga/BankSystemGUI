@@ -5,7 +5,7 @@ import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
-public class Address implements Serializable {
+public class Address {
 
     private StringProperty city;
     private StringProperty street;

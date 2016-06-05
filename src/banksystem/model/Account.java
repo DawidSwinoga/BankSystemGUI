@@ -1,19 +1,19 @@
 package banksystem.model;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.xml.bind.annotation.XmlElement;
 
-public class Account implements Serializable {
+public class Account {
 
     private IntegerProperty clientNumber;
     private StringProperty name;
     private StringProperty lastName;
+    @XmlElement(required = true)
     private Address address;
     private StringProperty pesel;
     private DoubleProperty balance;
@@ -86,7 +86,7 @@ public class Account implements Serializable {
     public DoubleProperty balanceProperty() {
         return balance;
     }
-
+    //@XmlElement
     public int getClientNumber() {
         return clientNumber.get();
     }
@@ -98,7 +98,7 @@ public class Account implements Serializable {
     public String getLastName() {
         return lastName.get();
     }
-
+    
     public Address getAdress() {
         return address;
     }
@@ -111,7 +111,7 @@ public class Account implements Serializable {
         return balance.get();
     }
 
-    public void setClientNumber(Integer clientNumber) {
+    public void setclientNumber(Integer clientNumber) {
         this.clientNumber.set(clientNumber);
     }
 

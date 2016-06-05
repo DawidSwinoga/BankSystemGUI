@@ -59,6 +59,8 @@ public class AccountOverviewController {
 
     public AccountOverviewController() {
     }
+    
+    
 
     private void hideActionAccountButtons(boolean hide) {
         removeAccountButton.setDisable(hide);
@@ -86,6 +88,13 @@ public class AccountOverviewController {
         hideActionAccountButtons(true);
         accountsTable.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> hideActionAccountButtons(false));
     }
+    
+    @FXML
+    private void handleTransfer() {
+        
+        transferAccounts.add(accountsTable.getSelectionModel().getSelectedItem());
+        transferAccountTable.setItems(transferAccounts);
+    }
 
     @FXML
     private void handleRemoveAccount() {
@@ -95,7 +104,7 @@ public class AccountOverviewController {
 
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
-        accountsTable.setItems(mainApp.getAccounts());
+        accountsTable.setItems(mainApp.getDatabase().getAccounts());        
     }
     
     @FXML
@@ -103,8 +112,8 @@ public class AccountOverviewController {
         Account account = mainApp.showCreateAccountDialog();
         
         if (account != null) {
-            mainApp.getAccounts().add(account);
+            account.setclientNumber(mainApp.getDatabase().getNextFreeClientId());
+            mainApp.getDatabase().getAccounts().add(account);
         }
     }
-
 }
