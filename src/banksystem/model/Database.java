@@ -51,19 +51,23 @@ public class Database {
         return null;
     }
 
-    public Account findByClientNumber(int clientNumber) {
+    public ObservableList<Account> findByClientNumber(int clientNumber) {
+	ObservableList<Account> foundAccounts = FXCollections.observableArrayList();
         for (Account account : accounts) {
             if (account.getClientNumber() == clientNumber) {
-                return account;
+                foundAccounts.add(account);
+		return foundAccounts;
             }
         }
         return null;
     }
 
-    public Account findByPesel(String pesel) {
+    public ObservableList<Account> findByPesel(String pesel) {
+	ObservableList<Account> foundAccounts = FXCollections.observableArrayList();
         for (Account account : accounts) {
             if (account.getPesel().equals(pesel)) {
-                return account;
+                foundAccounts.add(account);
+		return foundAccounts;
             }
         }
         return null;

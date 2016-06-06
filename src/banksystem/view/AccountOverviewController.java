@@ -131,12 +131,12 @@ public class AccountOverviewController {
                 accountsTable.setItems(database.findByLastName(searchInputField.getText()));
                 break;
             case "Pesel":
-                accountsTable.setItems(FXCollections.observableArrayList(database.findByPesel(searchInputField.getText())));
+                accountsTable.setItems(database.findByPesel(searchInputField.getText()));
                 break;
             case "Id":
                 Integer clientNumber = parseToInteger(searchInputField.getText());
                 if (clientNumber != null) {
-                    accountsTable.setItems(FXCollections.observableArrayList(database.findByClientNumber(clientNumber)));
+                    accountsTable.setItems(database.findByClientNumber(clientNumber));
                 }
                 break;
             case "Adres":
