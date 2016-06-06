@@ -12,9 +12,10 @@
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                <children>
-                  <TextField fx:id="searchInputField" layoutX="227.0" layoutY="10.0" onMouseClicked="#handleClearSearchInputField" />
-                  <Button defaultButton="true" layoutX="615.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSearch" text="Szukaj" />
-                  <ChoiceBox fx:id="searchOptionChoiceBox" layoutX="422.0" layoutY="10.0" prefWidth="150.0" />
+                  <TextField fx:id="searchInputField" layoutX="309.0" layoutY="10.0" onMouseClicked="#handleClearSearchInputField" />
+                  <Button defaultButton="true" layoutX="703.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleSearch" text="Szukaj" />
+                  <ChoiceBox fx:id="searchOptionChoiceBox" layoutX="524.0" layoutY="10.0" prefWidth="150.0" />
+                  <Button layoutX="116.0" layoutY="10.0" mnemonicParsing="false" onAction="#handleShowAllAccounts" text="Pokaż wszystkie konta" />
                </children></AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
@@ -24,9 +25,9 @@
                            <children>
                               <TableView fx:id="accountsTable" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columns>
-                                  <TableColumn fx:id="clientNumberColumn" prefWidth="75.0" text="ID" />
-                                  <TableColumn fx:id="nameColumn" prefWidth="75.0" text="Imie" />
-                                    <TableColumn fx:id="lastNameColumn" prefWidth="75.0" text="Nazwisko" />
+                                  <TableColumn fx:id="clientNumberColumn" prefWidth="72.0" text="ID" />
+                                  <TableColumn fx:id="nameColumn" prefWidth="58.0" text="Imie" />
+                                    <TableColumn fx:id="lastNameColumn" prefWidth="166.0" text="Nazwisko" />
                                     <TableColumn fx:id="peselColumn" prefWidth="75.0" text="Pesel" />
                                     <TableColumn fx:id="cityColumn" prefWidth="75.0" text="Miasto" />
                                     <TableColumn fx:id="streetColumn" prefWidth="103.0" text="Ulica" />
@@ -41,16 +42,16 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <SplitPane dividerPositions="0.6863979848866498" prefHeight="90.0" prefWidth="796.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <SplitPane dividerPositions="0.6286353467561522" prefHeight="90.0" prefWidth="796.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <AnchorPane fx:id="transferDetailsAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                        <children>
-                                          <SplitPane dividerPositions="0.20185185185185187" prefHeight="95.0" prefWidth="542.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <SplitPane dividerPositions="0.24100719424460432" prefHeight="95.0" prefWidth="542.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                             <items>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                                                    <children>
-                                                      <Label layoutX="11.0" layoutY="30.0" text="Konto żródłowe" />
-                                                      <Label layoutX="11.0" layoutY="55.0" text="Konto docelowe" />
+                                                      <Label layoutX="11.0" layoutY="33.0" text="Konto żródłowe" />
+                                                      <Label layoutX="11.0" layoutY="58.0" text="Konto docelowe" />
                                                    </children>
                                                 </AnchorPane>
                                               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
@@ -73,13 +74,13 @@
                                        </children></AnchorPane>
                                   <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0" SplitPane.resizableWithParent="false">
                                        <children>
-                                          <Button fx:id="createAccountButton" layoutX="14.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="20.0" prefWidth="70.0" text="Dodaj" />
-                                          <Button fx:id="withdrawButton" layoutX="108.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleWithdraw" prefHeight="20.0" prefWidth="70.0" text="Wypłać" />
-                                          <Button fx:id="depositButton" layoutX="14.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleDeposit" prefHeight="20.0" prefWidth="70.0" text="Wpłać" />
-                                          <Button fx:id="transferButton" layoutX="197.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleTransfer" text="Przelew" />
-                                          <Button fx:id="removeAccountButton" layoutX="197.0" layoutY="43.0" mnemonicParsing="false" onAction="#handleRemoveAccount" prefHeight="25.0" prefWidth="57.0" text="Usuń" />
-                                          <Label layoutX="14.0" layoutY="14.0" text="Kwota transakcji" />
-                                          <TextField fx:id="transactionAmountTextField" layoutX="108.0" layoutY="10.0" />
+                                          <Button fx:id="createAccountButton" layoutX="12.0" layoutY="6.0" mnemonicParsing="false" onAction="#handleCreateAccount" prefHeight="31.0" prefWidth="117.0" text="Dodaj konto" />
+                                          <Button fx:id="withdrawButton" layoutX="129.0" layoutY="85.0" mnemonicParsing="false" onAction="#handleWithdraw" prefHeight="20.0" prefWidth="70.0" text="Wypłać" />
+                                          <Button fx:id="depositButton" layoutX="14.0" layoutY="85.0" mnemonicParsing="false" onAction="#handleDeposit" prefHeight="20.0" prefWidth="70.0" text="Wpłać" />
+                                          <Button fx:id="transferButton" layoutX="240.0" layoutY="84.0" mnemonicParsing="false" onAction="#handleTransfer" text="Przelew" />
+                                          <Button fx:id="removeAccountButton" layoutX="211.0" layoutY="7.0" mnemonicParsing="false" onAction="#handleRemoveAccount" prefHeight="31.0" prefWidth="106.0" text="Usuń konto" />
+                                          <Label layoutX="13.0" layoutY="51.0" text="Kwota transakcji" />
+                                          <TextField fx:id="transactionAmountTextField" layoutX="129.0" layoutY="45.0" />
                                        </children>
                                     </AnchorPane>
                                 </items>

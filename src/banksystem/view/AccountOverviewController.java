@@ -68,6 +68,7 @@ public class AccountOverviewController {
     private TextField searchInputField;
     @FXML
     private AnchorPane transferDetailsAnchorPane;
+    
 
     private ObservableList<Account> transferAccounts = FXCollections.observableArrayList();
     private MainApp mainApp;
@@ -174,6 +175,13 @@ public class AccountOverviewController {
             isTransferInProgres = true;
         }
     }
+    
+    
+    @FXML
+    private void handleShowAllAccounts() {
+	accountsTable.setItems(database.getAccounts());
+    }
+    
 
     @FXML
     private void handleWithdraw() {
