@@ -1,73 +1,86 @@
 package banksystem.model;
 
-import java.io.File;
+import java.util.List;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
+import net.sf.ehcache.hibernate.HibernateUtil;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
+import org.hibernate.cfg.Configuration;
 
 public class Database {
 
-    private Integer nextFreeClientID;
     private ObservableList<Account> accounts = FXCollections.observableArrayList();
-    private String databaseName;
+    private SessionFactory sessionFactory;
 
-    public Database(String databaseName) {
-        this.databaseName = databaseName;
+    public Database() {
+        Configuration configuration = new Configuration().configure(HibernateUtil.class.getResource("/hibernate.cfg.xml"));
+        StandardServiceRegistryBuilder serviceRegistryBuilder = new StandardServiceRegistryBuilder();
+        serviceRegistryBuilder.applySettings(configuration.getProperties());
+        sessionFactory = configuration.buildSessionFactory(serviceRegistryBuilder.build());
+    }
 
+    public void add(Account account) {
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
         try {
-            JAXBContext context = JAXBContext.newInstance(AccountListWraper.class);
-            Unmarshaller unmarshaller = context.createUnmarshaller();
-            AccountListWraper listWraper = (AccountListWraper) unmarshaller.unmarshal(new File(databaseName + ".xml"));
-            accounts.addAll(listWraper.getAccounts());
-
-            this.nextFreeClientID = accounts.get(accounts.size() - 1).getClientNumber() + 1;
-        } catch (Exception e) {
-            this.nextFreeClientID = 0;
-            this.accounts = FXCollections.observableArrayList();
+            tx = session.beginTransaction();
+            session.save(account);
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
         }
     }
 
-    public void add(String name, String lastName, Address address, String pesel) {
-        accounts.add(new Account(nextFreeClientID, name, lastName, address, pesel));
-        ++nextFreeClientID;
-    }
-
-    public ObservableList<Account> getAccounts() {
+    public List<Account> getAccounts() {
+        List<Account> accounts = null;
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try {
+            tx = session.beginTransaction();
+            accounts = session.createQuery("FROM Account").list();
+            tx.commit();
+        } catch (HibernateException e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            session.close();
+        }
         return accounts;
     }
 
     public Account remove(int clientNumber) {
-        if (clientNumber >= nextFreeClientID) {
-            return null;
-        }
-
-        for (int i = 0; i < accounts.size(); ++i) {
-            if (accounts.get(i).getClientNumber() == clientNumber) {
-                return accounts.remove(i);
-            }
-        }
+        //TODO removed account
         return null;
     }
 
     public ObservableList<Account> findByClientNumber(int clientNumber) {
-	ObservableList<Account> foundAccounts = FXCollections.observableArrayList();
+        ObservableList<Account> foundAccounts = FXCollections.observableArrayList();
         for (Account account : accounts) {
             if (account.getClientNumber() == clientNumber) {
                 foundAccounts.add(account);
-		return foundAccounts;
+                return foundAccounts;
             }
         }
         return null;
     }
 
     public ObservableList<Account> findByPesel(String pesel) {
-	ObservableList<Account> foundAccounts = FXCollections.observableArrayList();
+        ObservableList<Account> foundAccounts = FXCollections.observableArrayList();
         for (Account account : accounts) {
             if (account.getPesel().equals(pesel)) {
                 foundAccounts.add(account);
-		return foundAccounts;
+                return foundAccounts;
             }
         }
         return null;
@@ -104,22 +117,5 @@ public class Database {
             }
         }
         return foundAccounts;
-    }
-
-    public void save() {
-        try {
-            JAXBContext context = JAXBContext.newInstance(AccountListWraper.class);
-            Marshaller marshaller = context.createMarshaller();
-            marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-            AccountListWraper listWrapper = new AccountListWraper();
-            listWrapper.setAccounts(accounts);
-            marshaller.marshal(listWrapper, new File(databaseName + ".xml"));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public Integer getNextFreeClientId() {
-        return nextFreeClientID++;
     }
 }

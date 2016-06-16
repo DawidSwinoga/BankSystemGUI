@@ -36,39 +36,13 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        SessionFactory sessionFactory;
-        try {
-            sessionFactory = new AnnotationConfiguration()
-                    .configure().buildSessionFactory();
-        } catch (Throwable ex) {
-            // Log exception!
-            throw new ExceptionInInitializerError(ex);
-        }
-        
-        
-        Session session = sessionFactory.openSession();
-        Transaction tx = null;
-        try{
-            tx = session.beginTransaction();
-            Account account = new Account(0, "Michał", "Parysz", new Address("Koluszki", "Żeliwna 14", "2341"), "12312312");
-            
-            session.save(account);
-            tx.commit();
-        }catch(HibernateException e) {
-            if (tx!=null) tx.rollback();
-			e.printStackTrace();
-        } finally {
-            session.close();
-        }
-        
-        
-        database = new Database("database");
+        database = new Database();
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("BankSystem");
 
         initRootLayout();
         ShowAccountOverview();
-        this.primaryStage.setOnCloseRequest(e -> database.save());
+        //this.primaryStage.setOnCloseRequest(e -> database.save());
     }
 
     public void initRootLayout() {

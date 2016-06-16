@@ -73,6 +73,7 @@ public class AccountOverviewController {
     private ObservableList<Account> transferAccounts = FXCollections.observableArrayList();
     private MainApp mainApp;
     private Database database;
+    private ObservableList<Account> accounts = FXCollections.observableArrayList();
     private boolean isTransferInProgres = false;
 
     public AccountOverviewController() {
@@ -179,7 +180,7 @@ public class AccountOverviewController {
     
     @FXML
     private void handleShowAllAccounts() {
-	accountsTable.setItems(database.getAccounts());
+	accountsTable.setItems(FXCollections.observableList(database.getAccounts()));
     }
     
 
@@ -221,16 +222,15 @@ public class AccountOverviewController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         database = this.mainApp.getDatabase();
-        accountsTable.setItems(mainApp.getDatabase().getAccounts());
+        accountsTable.setItems(FXCollections.observableList(database.getAccounts()));
     }
 
     @FXML
     private void handleCreateAccount() {
         Account account = mainApp.showCreateAccountDialog();
 
-        if (account != null) {
-            account.setClientNumber(mainApp.getDatabase().getNextFreeClientId());
-            mainApp.getDatabase().getAccounts().add(account);
+        if (account != null) {            
+            mainApp.getDatabase().add(account);
         }
     }
 
