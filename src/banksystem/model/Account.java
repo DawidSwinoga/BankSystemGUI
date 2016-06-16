@@ -6,14 +6,22 @@ import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.Access;
+import javax.persistence.AccessType;
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.xml.bind.annotation.XmlElement;
 
+@Entity
+@Access(AccessType.PROPERTY)
 public class Account {
 
     private IntegerProperty clientNumber;
     private StringProperty name;
     private StringProperty lastName;
-    @XmlElement(required = true)
+    @XmlElement(required = true)    
     private Address address;
     private StringProperty pesel;
     private DoubleProperty balance;
@@ -87,6 +95,7 @@ public class Account {
         return balance;
     }
 
+    @Id @GeneratedValue
     public Integer getClientNumber() {
         return clientNumber.get();
     }
@@ -99,6 +108,7 @@ public class Account {
         return lastName.get();
     }
 
+    @Embedded
     public Address getAdress() {
         return address;
     }

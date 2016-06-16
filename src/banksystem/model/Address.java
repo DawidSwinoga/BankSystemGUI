@@ -3,7 +3,9 @@ package banksystem.model;
 import java.util.Objects;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javax.persistence.Embeddable;
 
+@Embeddable
 public class Address {
 
     private StringProperty city;

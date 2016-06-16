@@ -6,6 +6,7 @@ package banksystem;
  * and open the template in the editor.
  */
 import banksystem.model.Account;
+import banksystem.model.Address;
 import banksystem.model.Database;
 import banksystem.view.AccountOverviewController;
 import banksystem.view.CreateAccountDialogController;
@@ -17,6 +18,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import org.hibernate.HibernateException;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.AnnotationConfiguration;
 
 /**
  *
@@ -30,6 +36,32 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        SessionFactory sessionFactory;
+        try {
+            sessionFactory = new AnnotationConfiguration()
+                    .configure().buildSessionFactory();
+        } catch (Throwable ex) {
+            // Log exception!
+            throw new ExceptionInInitializerError(ex);
+        }
+        
+        
+        Session session = sessionFactory.openSession();
+        Transaction tx = null;
+        try{
+            tx = session.beginTransaction();
+            Address address = new Address("Bedzelin","Grzybowa","95-040");
+            
+            session.save(address);
+            tx.commit();
+        }catch(HibernateException e) {
+            if (tx!=null) tx.rollback();
+			e.printStackTrace();
+        } finally {
+            session.close();
+        }
+        
+        
         database = new Database("database");
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("BankSystem");
