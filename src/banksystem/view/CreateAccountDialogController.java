@@ -54,9 +54,9 @@ public class CreateAccountDialogController {
             account.setName(nameField.getText());
             account.setLastName(lastNameField.getText());
             account.setPesel(peselField.getText());
-            account.getAdress().setCity(cityField.getText());
-            account.getAdress().setStreet(streetField.getText());
-            account.getAdress().setPostalCode(postalCodeField.getText());
+            account.getAddress().setCity(cityField.getText());
+            account.getAddress().setStreet(streetField.getText());
+            account.getAddress().setPostalCode(postalCodeField.getText());
 
             dialogStage.close();
         }

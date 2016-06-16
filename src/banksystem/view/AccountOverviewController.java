@@ -91,9 +91,9 @@ public class AccountOverviewController {
         nameColumn.setCellValueFactory(cellData -> cellData.getValue().nameProperty());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().lastNameProperty());
         peselColumn.setCellValueFactory(cellData -> cellData.getValue().peselProperty());
-        cityColumn.setCellValueFactory(cellData -> cellData.getValue().getAdress().cityProperty());
-        streetColumn.setCellValueFactory(cellData -> cellData.getValue().getAdress().streetProperty());
-        postalCodeColumn.setCellValueFactory(cellData -> cellData.getValue().getAdress().postalCodeProperty());
+        cityColumn.setCellValueFactory(cellData -> cellData.getValue().getAddress().cityProperty());
+        streetColumn.setCellValueFactory(cellData -> cellData.getValue().getAddress().streetProperty());
+        postalCodeColumn.setCellValueFactory(cellData -> cellData.getValue().getAddress().postalCodeProperty());
         balanceColumn.setCellValueFactory(cellData -> cellData.getValue().balanceProperty());
 
         clientNumberTransferColumn.setCellValueFactory(cellData -> cellData.getValue().clientNumberProperty());

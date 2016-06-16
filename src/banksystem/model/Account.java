@@ -109,7 +109,7 @@ public class Account {
     }
 
     @Embedded
-    public Address getAdress() {
+    public Address getAddress() {
         return address;
     }
 

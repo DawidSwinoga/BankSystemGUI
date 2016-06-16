@@ -99,7 +99,7 @@ public class Database {
         ObservableList<Account> foundAccounts = FXCollections.observableArrayList();
 
         for (Account account : accounts) {
-            if (account.getAdress().equals(address)) {
+            if (account.getAddress().equals(address)) {
                 foundAccounts.add(account);
             }
         }

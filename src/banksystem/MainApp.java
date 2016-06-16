@@ -50,9 +50,9 @@ public class MainApp extends Application {
         Transaction tx = null;
         try{
             tx = session.beginTransaction();
-            Address address = new Address("Bedzelin","Grzybowa","95-040");
+            Account account = new Account(0, "Michał", "Parysz", new Address("Koluszki", "Żeliwna 14", "2341"), "12312312");
             
-            session.save(address);
+            session.save(account);
             tx.commit();
         }catch(HibernateException e) {
             if (tx!=null) tx.rollback();

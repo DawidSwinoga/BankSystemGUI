@@ -6,6 +6,7 @@
     <property name="hibernate.connection.url">jdbc:sqlserver://localhost;databaseName=bank_system</property>
     <property name="hibernate.connection.username">sa</property>
     <property name="hibernate.connection.password">rudy102</property>
+    <!--<property name="hibernate.hbm2ddl.auto">create</property> -->
     <mapping class="banksystem.model.Address"/>
     <mapping class="banksystem.model.Account"/>
   </session-factory>
