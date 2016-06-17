@@ -222,7 +222,8 @@ public class AccountOverviewController {
     public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
         database = this.mainApp.getDatabase();
-        accountsTable.setItems(FXCollections.observableList(database.getAccounts()));
+	accounts.addAll(FXCollections.observableList(database.getAccounts()));
+        accountsTable.setItems(accounts);
     }
 
     @FXML
@@ -231,6 +232,7 @@ public class AccountOverviewController {
 
         if (account != null) {            
             mainApp.getDatabase().add(account);
+	    accounts.add(account);
         }
     }
 
