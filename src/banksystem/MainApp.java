@@ -42,7 +42,7 @@ public class MainApp extends Application {
 
         initRootLayout();
         ShowAccountOverview();
-        //this.primaryStage.setOnCloseRequest(e -> database.save());
+        this.primaryStage.setOnCloseRequest(e -> database.shutdown());
     }
 
     public void initRootLayout() {
@@ -106,6 +106,8 @@ public class MainApp extends Application {
     public Database getDatabase() {
         return database;
     }
+
+       
 
     public static void main(String[] args) {
         launch(args);

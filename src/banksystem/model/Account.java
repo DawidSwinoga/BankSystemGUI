@@ -43,22 +43,20 @@ public class Account {
         balance.set(balance.get() + Math.abs(amount));
     }
 
-    public boolean withdraw(Double amount) {
+    public void withdraw(Double amount) throws NotEnoughtMoneyToTransactionException {
         if (isEnoughMoney(Math.abs(amount))) {
             balance.set(balance.get() - Math.abs(amount));
-            return true;
         } else {
-            return false;
+            throw new NotEnoughtMoneyToTransactionException("Not enought money to withdraw");
         }
     }
 
-    public boolean transfer(Account destinationAccount, Double amount) {
+    public void transfer(Account destinationAccount, Double amount) throws NotEnoughtMoneyToTransactionException {
         if (isEnoughMoney(Math.abs(amount))) {
             withdraw(amount);
             destinationAccount.deposit(amount);
-            return true;
         } else {
-            return false;
+            throw new NotEnoughtMoneyToTransactionException("Not enought money to transfer");
         }
     }
 
