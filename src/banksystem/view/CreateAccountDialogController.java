@@ -1,6 +1,8 @@
 package banksystem.view;
 
 import banksystem.model.Account;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -71,8 +73,8 @@ public class CreateAccountDialogController {
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
             messageError = messageError + "Podaj nazwisko.\n";
         }
-        if (peselField.getText() == null || peselField.getText().length() == 0) {
-            messageError = messageError + "Podaj pesel.\n";
+        if (peselField.getText() == null || !isPesel(peselField.getText())) {
+            messageError = messageError + "Podaj prawidłowy pesel.\n";
         }
         if (cityField.getText() == null || cityField.getText().length() == 0) {
             messageError = messageError + "Podaj miasto.\n";
@@ -80,7 +82,7 @@ public class CreateAccountDialogController {
         if (streetField.getText() == null || streetField.getText().length() == 0) {
             messageError = messageError + "Podaj ulice.\n";
         }
-        if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
+        if (postalCodeField.getText() == null || !isPostalCode(postalCodeField.getText())) {
             messageError = messageError + "Podaj kod pocztowy.\n";
         }
 
@@ -95,6 +97,21 @@ public class CreateAccountDialogController {
             return false;
         }
 
+    }
+    
+    private boolean isPesel(String pesel) {
+	return checker(pesel, "\\d{11}?");
+    }
+    
+    
+    private boolean isPostalCode(String postalCode) {
+	return checker(postalCode, "\\d{2}-?\\d{3}?");
+    }
+    
+    private boolean checker(String data, String patter) {
+	Pattern pattern = Pattern.compile(patter);
+	Matcher matcher = pattern.matcher(data);
+	return matcher.matches();
     }
 
 }

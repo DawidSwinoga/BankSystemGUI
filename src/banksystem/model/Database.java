@@ -1,8 +1,6 @@
 package banksystem.model;
 
 import java.util.List;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import net.sf.ehcache.hibernate.HibernateUtil;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
@@ -13,8 +11,7 @@ import org.hibernate.cfg.Configuration;
 
 public class Database {
 
-    private ObservableList<Account> accounts = FXCollections.observableArrayList();
-    private SessionFactory sessionFactory;
+    final private SessionFactory sessionFactory;
 
     public Database() {
 	Configuration configuration = new Configuration().configure(HibernateUtil.class.getResource("/hibernate.cfg.xml"));

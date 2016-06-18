@@ -5,12 +5,13 @@ import banksystem.model.Account;
 import banksystem.model.Database;
 import banksystem.model.Address;
 import banksystem.model.NotEnoughtMoneyToTransactionException;
-import java.util.List;
 import java.util.Objects;
+import java.util.Optional;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.ChoiceBox;
@@ -163,17 +164,19 @@ public class AccountOverviewController {
 	    if (amount == null) {
 		return;
 	    }
-	    try {		
-		database.transfer(transferAccounts.get(0), transferAccounts.get(1), amount);
-		refreshAccount(transferAccounts.get(0));
-		transferAccounts.clear();
-		transferDisableButtons(false);
-		transferDetailsAnchorPane.setVisible(false);
-		isTransferInProgres = false;
-	    } catch (NotEnoughtMoneyToTransactionException e) {
-		showNotEnoughMoneyToTransactionError();
-		refreshAccount(transferAccounts.get(0));
-	    }	    
+	    if (showConfirmationAlert("Czy na pewno chcesz przelać gotówkę?")) {
+		try {
+		    database.transfer(transferAccounts.get(0), transferAccounts.get(1), amount);
+		    refreshAccount(transferAccounts.get(0));
+		    transferAccounts.clear();
+		    transferDisableButtons(false);
+		    transferDetailsAnchorPane.setVisible(false);
+		    isTransferInProgres = false;
+		} catch (NotEnoughtMoneyToTransactionException e) {
+		    showNotEnoughMoneyToTransactionError();
+		    refreshAccount(transferAccounts.get(0));
+		}
+	    }
 	} else if (transferAccounts.isEmpty() || !Objects.equals(accountsTable.getSelectionModel().getSelectedItem().getClientNumber(), transferAccounts.get(0).getClientNumber())) {
 	    transferAccounts.add(accountsTable.getSelectionModel().getSelectedItem());
 	    transferAccountTable.setItems(transferAccounts);
@@ -194,13 +197,14 @@ public class AccountOverviewController {
 
 	if (amount != null) {
 	    Account account = accountsTable.getSelectionModel().getSelectedItem();
-	    try {
-		database.withdraw(account, amount);
-	    } catch (NotEnoughtMoneyToTransactionException e) {
-		showNotEnoughMoneyToTransactionError();
+	    if (showConfirmationAlert("Czy na pewno chcesz wypłacić gotówkę?")) {
+		try {
+		    database.withdraw(account, amount);
+		} catch (NotEnoughtMoneyToTransactionException e) {
+		    showNotEnoughMoneyToTransactionError();
+		}
+		refreshAccount(account);
 	    }
-
-	    refreshAccount(account);
 	}
 
     }
@@ -210,18 +214,22 @@ public class AccountOverviewController {
 	Double amount = parseToDouble(transactionAmountTextField.getText());
 
 	if (amount != null) {
-	    Account account = accountsTable.getSelectionModel().getSelectedItem();
-	    account.deposit(amount);
-	    database.deposit(account);
+	    if (showConfirmationAlert("Czy na pewno chcesz wpłacić gotówkę?")) {
+		Account account = accountsTable.getSelectionModel().getSelectedItem();
+		account.deposit(amount);
+		database.deposit(account);
+	    }
 	}
     }
 
     @FXML
     private void handleRemoveAccount() {
-	Account account = accountsTable.getSelectionModel().getSelectedItem();
-	int selectedIndex = accountsTable.getSelectionModel().getSelectedIndex();
-	database.remove(account);
-	accountsTable.getItems().remove(selectedIndex);
+	if (showConfirmationAlert("Czy na pewno chcesz usunąć konto?")) {
+	    Account account = accountsTable.getSelectionModel().getSelectedItem();
+	    int selectedIndex = accountsTable.getSelectionModel().getSelectedIndex();
+	    database.remove(account);
+	    accountsTable.getItems().remove(selectedIndex);
+	}
     }
 
     @FXML
@@ -241,9 +249,11 @@ public class AccountOverviewController {
 	Account account = mainApp.showCreateAccountDialog();
 
 	if (account != null) {
-	    mainApp.getDatabase().add(account);
-	    accounts.add(account);
-	    accountsTable.setItems(accounts);
+	    if (showConfirmationAlert("Czy na pewno chcesz utworzyć nowe konto?")) {
+		mainApp.getDatabase().add(account);
+		accounts.add(account);
+		accountsTable.setItems(accounts);
+	    }
 	}
     }
 
@@ -286,5 +296,14 @@ public class AccountOverviewController {
 	removeAccountButton.setDisable(disable);
 	depositButton.setDisable(disable);
 	withdrawButton.setDisable(disable);
+    }
+
+    private boolean showConfirmationAlert(String text) {
+	Alert alert = new Alert(AlertType.CONFIRMATION);
+	alert.setTitle("Potwierdzenie wykonania operacji");
+	alert.setHeaderText(text);
+
+	Optional<ButtonType> result = alert.showAndWait();
+	return result.get() == ButtonType.OK;
     }
 }
