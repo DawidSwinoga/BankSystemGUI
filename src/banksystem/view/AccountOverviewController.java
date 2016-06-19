@@ -130,29 +130,34 @@ public class AccountOverviewController {
 	switch (option) {
 	    case "Imie":
 		String name = searchInputField.getText();
-		accountsTable.setItems(FXCollections.observableList(database.findByName(name)));
+                accounts.clear();
+		accounts.addAll(FXCollections.observableList(database.findByName(name)));
 		break;
 	    case "Nazwisko":
 		String lastName = searchInputField.getText();
-		accountsTable.setItems(FXCollections.observableList(database.findByLastName(lastName)));
+                accounts.clear();
+		accounts.addAll(FXCollections.observableList(database.findByLastName(lastName)));
 		break;
 	    case "Pesel":
 		String pesel = searchInputField.getText();
-		accountsTable.setItems(FXCollections.observableList(database.findByPesel(pesel)));
+                accounts.clear();
+		accounts.addAll(FXCollections.observableList(database.findByPesel(pesel)));
 		break;
-	    case "Id":
+	    case "Id":                
 		Integer clientNumber = parseToInteger(searchInputField.getText());
 		if (clientNumber != null) {
-		    accountsTable.setItems(FXCollections.observableList(database.findByClientNumber(clientNumber)));
+                    accounts.clear();
+		    accounts.addAll(FXCollections.observableList(database.findByClientNumber(clientNumber)));
 		}
 		break;
-	    case "Adres":
+	    case "Adres":                
 		String address = searchInputField.getText();
 		String[] addressSplit = address.split(", ");
 
 		if (!(addressSplit == null || addressSplit.length < 3)) {
 		    Address addressToFind = new Address(addressSplit[0], addressSplit[1], addressSplit[2]);
-		    accountsTable.setItems(FXCollections.observableList(database.findByAdress(addressToFind)));
+                    accounts.clear();
+		    accounts.addAll(FXCollections.observableList(database.findByAdress(addressToFind)));
 		}
 	}
     }
@@ -188,7 +193,8 @@ public class AccountOverviewController {
 
     @FXML
     private void handleShowAllAccounts() {
-	accountsTable.setItems(FXCollections.observableList(database.getAccounts()));
+        accounts.clear();
+	accounts.addAll(FXCollections.observableList(database.getAccounts()));
     }
 
     @FXML
@@ -215,9 +221,9 @@ public class AccountOverviewController {
 
 	if (amount != null) {
 	    if (showConfirmationAlert("Czy na pewno chcesz wpłacić gotówkę?")) {
-		Account account = accountsTable.getSelectionModel().getSelectedItem();
-		account.deposit(amount);
-		database.deposit(account);
+		Account account = accountsTable.getSelectionModel().getSelectedItem();		
+		database.deposit(account, amount);
+                refreshAccount(account);
 	    }
 	}
     }

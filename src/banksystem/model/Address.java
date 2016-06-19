@@ -29,9 +29,9 @@ public class Address {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 89 * hash + Objects.hashCode(this.city);
-        hash = 89 * hash + Objects.hashCode(this.street);
-        hash = 89 * hash + Objects.hashCode(this.postalCode);
+        hash = 89 * hash + Objects.hashCode(this.city.get());
+        hash = 89 * hash + Objects.hashCode(this.street.get());
+        hash = 89 * hash + Objects.hashCode(this.postalCode.get());
         return hash;
     }
 
@@ -47,13 +47,13 @@ public class Address {
             return false;
         }
         final Address other = (Address) obj;
-        if (!Objects.equals(this.getCity(), other.getCity())) {
+        if (!Objects.equals(this.city.get(), other.city.get())) {
             return false;
         }
-        if (!Objects.equals(this.getStreet(), other.getStreet())) {
+        if (!Objects.equals(this.street.get(), other.street.get())) {
             return false;
         }
-        if (!Objects.equals(this.getPostalCode(), other.getPostalCode())) {
+        if (!Objects.equals(this.postalCode.get(), other.postalCode.get())) {
             return false;
         }
         return true;

@@ -1,5 +1,6 @@
 package banksystem.model;
 
+import java.util.Objects;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -49,16 +50,7 @@ public class Account {
         } else {
             throw new NotEnoughtMoneyToTransactionException("Not enought money to withdraw");
         }
-    }
-
-    public void transfer(Account destinationAccount, Double amount) throws NotEnoughtMoneyToTransactionException {
-        if (isEnoughMoney(Math.abs(amount))) {
-            withdraw(amount);
-            destinationAccount.deposit(amount);
-        } else {
-            throw new NotEnoughtMoneyToTransactionException("Not enought money to transfer");
-        }
-    }
+    }    
 
     public boolean isEnoughMoney(Double amount) {
         return (balance.get() - Math.abs(amount)) >= 0;
@@ -142,4 +134,51 @@ public class Account {
     public void setBalance(Double balance) {
         this.balance.set(balance);
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 29 * hash + Objects.hashCode(this.clientNumber.get());
+        hash = 29 * hash + Objects.hashCode(this.name.get());
+        hash = 29 * hash + Objects.hashCode(this.lastName.get());
+        hash = 29 * hash + Objects.hashCode(this.address);
+        hash = 29 * hash + Objects.hashCode(this.pesel.get());
+        hash = 29 * hash + Objects.hashCode(this.balance.get());
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Account other = (Account) obj;
+        if (!Objects.equals(this.clientNumber.get(), other.clientNumber.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.name.get(), other.name.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.lastName.get(), other.lastName.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.address, other.address)) {
+            return false;
+        }
+        if (!Objects.equals(this.pesel.get(), other.pesel.get())) {
+            return false;
+        }
+        if (!Objects.equals(this.balance.get(), other.balance.get())) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 }

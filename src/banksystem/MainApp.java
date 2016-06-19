@@ -30,7 +30,7 @@ public class MainApp extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        database = new Database();
+        database = new Database("/hibernate.cfg.xml");
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("BankSystem");
 
